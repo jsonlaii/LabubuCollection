@@ -57,7 +57,7 @@ async function login(username, password) {
             role: user.role,
             loginTime: new Date().toISOString()
         };
-        sessionStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+        localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
         return sessionData;
     } else {
         throw new Error('Invalid username or password');
@@ -88,12 +88,12 @@ async function register(username, password) {
 }
 
 function logout() {
-    sessionStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(SESSION_KEY);
     window.location.href = 'login.html';
 }
 
 function checkAuth() {
-    const session = sessionStorage.getItem(SESSION_KEY);
+    const session = localStorage.getItem(SESSION_KEY);
     if (!session) {
         // Redirect to login if not on login or signup page
         const path = window.location.pathname;
@@ -106,7 +106,7 @@ function checkAuth() {
 }
 
 function getCurrentUser() {
-    const session = sessionStorage.getItem(SESSION_KEY);
+    const session = localStorage.getItem(SESSION_KEY);
     return session ? JSON.parse(session) : null;
 }
 

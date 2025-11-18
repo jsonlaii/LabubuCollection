@@ -22,8 +22,10 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
+                    <span id="user-display" class="text-sm text-gray-500 hidden md:block mr-2"></span>
                     <button id="nav-browse" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">Browse</button>
                     <button id="nav-collection" class="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">My Collection</button>
+                    <button onclick="logout()" class="text-red-600 hover:text-red-800 px-3 py-2 rounded-md text-sm font-medium ml-2">Logout</button>
                 </div>
             </div>
         </div>
@@ -51,6 +53,19 @@
         </button>
     </div>
 
+    <script src="auth.js"></script>
+    <script>
+        const currentUser = checkAuth();
+        if (currentUser) {
+            const userDisplay = document.getElementById('user-display');
+            if (userDisplay) {
+                userDisplay.textContent = `Welcome, ${currentUser.username}`;
+                if (currentUser.role === 'admin') {
+                    userDisplay.innerHTML += ' <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full">Admin</span>';
+                }
+            }
+        }
+    </script>
     <script src="data.js"></script>
     <script src="app.js"></script>
 </body>

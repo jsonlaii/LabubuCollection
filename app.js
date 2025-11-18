@@ -1,7 +1,10 @@
 // State
+const currentUserApp = checkAuth(); // Rename to avoid conflict if declared elsewhere, though let/const are block scoped
+const collectionKey = currentUserApp ? `labubu_collection_${currentUserApp.username}` : 'myLabubuCollection';
+
 let state = {
     view: 'browse', // 'browse' or 'collection'
-    myCollection: JSON.parse(localStorage.getItem('myLabubuCollection')) || []
+    myCollection: JSON.parse(localStorage.getItem(collectionKey)) || []
 };
 
 // DOM Elements
@@ -55,7 +58,7 @@ function toggleCollection(id) {
     } else {
         state.myCollection.splice(index, 1);
     }
-    localStorage.setItem('myLabubuCollection', JSON.stringify(state.myCollection));
+    localStorage.setItem(collectionKey, JSON.stringify(state.myCollection));
     render();
 }
 
